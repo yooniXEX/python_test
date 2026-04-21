@@ -2,24 +2,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tasks</title>
 </head>
 <body>
 
-<h2>📋 Мои задачи</h2>
+<h2>📋 Задачи</h2>
 <div id="tasks"></div>
-
-<input id="input" placeholder="Новая задача">
-<button onclick="addTask()">Добавить</button>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <script>
+const API_URL = "https://your-app.up.railway.app";
+
 const tg = window.Telegram.WebApp;
 tg.expand();
-
-const API_URL = " https://tricky-cameras-add.loca.lt";
 
 const params = new URLSearchParams(window.location.search);
 const userId = params.get("user_id");
@@ -33,45 +29,9 @@ async function loadTasks() {
 
     data.tasks.forEach(t => {
         const el = document.createElement("div");
-
-        el.innerHTML = `
-            <input type="checkbox" ${t.done ? "checked" : ""}
-                onchange="toggle(${t.id}, this.checked)">
-            ${t.title}
-        `;
-
+        el.textContent = "• " + t.title;
         div.appendChild(el);
     });
-}
-
-async function addTask() {
-    const input = document.getElementById("input");
-
-    await fetch(`${API_URL}/api/add`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            user_id: parseInt(userId),
-            title: input.value
-        })
-    });
-
-    input.value = "";
-    loadTasks();
-}
-
-async function toggle(id, done) {
-    await fetch(`${API_URL}/api/update`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            user_id: parseInt(userId),
-            task_id: id,
-            is_done: done
-        })
-    });
-
-    loadTasks();
 }
 
 loadTasks();
