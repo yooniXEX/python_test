@@ -6,7 +6,7 @@ from aiogram.filters import Command, CommandStart
 
 TOKEN = "8381336402:AAFM9PbF6fqKVfBz_nkOzff4iOo7EPHahjE"
 API_URL = "https://your-app.up.railway.app"
-MINI_APP_URL = "https://your-site.netlify.app"
+MINI_APP_URL = "https://magical-taiyaki-08d177.netlify.app"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
